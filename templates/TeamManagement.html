@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Manage Squad</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+		body{
+		   		background-color: black;
+		            background-image: url('http://127.0.0.1:5000/static/images/bgg1.jpg');
+		            background-size:     cover;                      
+		            background-repeat:   no-repeat;
+		            background-position: center 0; 
+		            overflow-y: hidden;
+		   	}
+   			h1, h2{
+   			text-align: center;
+   			color: white;
+   			font-weight: bolder;
+   			}
+   			.squadList{
+   				height: 380px;
+   				overflow-y: scroll;
+   				width: 40%;
+   				/*margin-top: 5%;*/
+   				display: inline-block;
+   				/*border: 1px solid white;*/
+   			}
+   			.bestSquad{
+   				float: right;
+   				/*height: 280px;*/
+   				width: 30%;
+   				/*margin-top: 5%;*/
+   				/*border: 1px solid white;*/
+   			}
+   			table {
+			  border-spacing: 0;
+			  width: 100%;
+			  border: 1px solid #ddd;
+			}
+
+			th {
+			  cursor: pointer;
+			  background-color: rgba(0,255,133,0.7)
+			}
+
+			th, td {
+			  text-align: center;
+			  padding: 3px;
+			  color: white;
+			  font-weight: bold;
+			}
+
+			tr:nth-child(even) {
+			  background-color: rgba(0,0,0,0.8);
+			}
+			tr:nth-child(odd) {
+			  background-color: rgba(0,0,0,0.8)
+			}
+
+    </style>
+</head>
+
+<body>
+<div class="container" style="border: 1px solid white; margin-top: 2%; padding: 5px;">
+    <div style="width: 100%; padding: 2px; background-color:  #38003c;">
+        <h1> {{ club }} </h1>
+        <h5 style="color: white;" align="center"> Manager: {{ session['name'] }} </h5>
+        {% if session['is_logged_in']==True %}
+        <form action="/logout">
+            <button class="btn btn-success"
+                    style="background-color:  #f96f6f; float: right; margin-top: -8%; width: 80px;height: 30px;color: white;text-align: center;">
+                Logout
+            </button>
+            <br>
+        </form>
+        {% else %}
+        <script type="text/javascript">
+            alert("Loggin First .."); window.location.href="http://127.0.0.1:5000/"
+
+        </script>
+        {% endif %}
+    </div>
+    <div>
+        <table>
+            <tr>
+                <th>Forwards</th>
+                <th>Midfielders</th>
+                <th>Defenders</th>
+                <th>GK</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>10</td>
+                <td>40</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <div style="">
+        <form action="/teamManagement" class="col-md-4" method="POST" enctype="multipart/form-data"
+              style="width:300px;">
+            <div class="form-group" style="border: none;width: 250px">
+                <h4 style="color: white">Upload file</h4>
+                <input type="File" class="form-control" name="file">
+            </div>
+                <input class="btn btn-success" type="submit"/>
+        </form>
+    </div>
+    <div class="squadList">
+        <table id="myTable">
+            <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+            <thead>
+            <tr>
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">Age</th>
+                <th onclick="sortTable(2)">Position</th>
+                <th onclick="sortTable(3)">Overall</th>
+            </tr>
+            </thead>
+            <tbody>{% for item in data %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>{{item[2]}}</td>
+                <td>{{item[3]}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bestSquad">
+        <h2 align="center">4-4-2</h2>
+        <table id="myTable" style="height: auto;">
+            <thead>
+            <tr>
+                <!--When a header is clicked, run the sortTable function, with a parameter, 0 for sorting by names, 1 for sorting by country:-->
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">Position</th>
+                <th onclick="sortTable(2)">Overall</th>
+            </tr>
+            </thead>
+            <tbody>{% for player in squad %}
+            <tr>
+                <td>{{player[0]}}</td>
+                <td>{{player[2]}}</td>
+                <td>{{player[3]}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+		function sortTable(n) {
+		  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+		  table = document.getElementById("myTable");
+		  switching = true;
+		  //Set the sorting direction to ascending:
+		  dir = "asc"; 
+		  /*Make a loop that will continue until
+		  no switching has been done:*/
+		  while (switching) {
+		    //start by saying: no switching is done:
+		    switching = false;
+		    rows = table.rows;
+		    /*Loop through all table rows (except the
+		    first, which contains table headers):*/
+		    for (i = 1; i < (rows.length - 1); i++) {
+		      //start by saying there should be no switching:
+		      shouldSwitch = false;
+		      /*Get the two elements you want to compare,
+		      one from current row and one from the next:*/
+		      x = rows[i].getElementsByTagName("TD")[n];
+		      y = rows[i + 1].getElementsByTagName("TD")[n];
+		      /*check if the two rows should switch place,
+		      based on the direction, asc or desc:*/
+		      if (dir == "asc") {
+		        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+		          //if so, mark as a switch and break the loop:
+		          shouldSwitch= true;
+		          break;
+		        }
+		      } else if (dir == "desc") {
+		        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+		          //if so, mark as a switch and break the loop:
+		          shouldSwitch = true;
+		          break;
+		        }
+		      }
+		    }
+		    if (shouldSwitch) {
+		      /*If a switch has been marked, make the switch
+		      and mark that a switch has been done:*/
+		      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		      switching = true;
+		      //Each time a switch is done, increase this count by 1:
+		      switchcount ++;      
+		    } else {
+		      /*If no switching has been done AND the direction is "asc",
+		      set the direction to "desc" and run the while loop again.*/
+		      if (switchcount == 0 && dir == "asc") {
+		        dir = "desc";
+		        switching = true;
+		      }
+		    }
+		  }
+		}
+
+</script>
+</body>
+
+</html>

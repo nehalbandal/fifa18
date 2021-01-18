@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style type="text/css">
+    body{
+        background-color: black;
+              background-image: url('http://127.0.0.1:5000/static/images/bg1.jpg');
+              background-size:     cover;                      
+              background-repeat:   no-repeat;
+              background-position: center 0; 
+      }
+        h1, h2{
+          text-align: center;
+          color: white;
+          font-weight: bolder;
+        }
+      
+      .box1Text:hover{
+        color: #00ff85;
+      }
+      
+      .img-with-text {
+      text-align: center;
+      width: 250px;
+      height: 230px;
+      border: 0px solid ;
+      margin: 0 auto;
+      margin-top: 4%;
+      display: inline-block;
+      margin-right: 8%;
+  }
+  
+  .img-with-text img {
+      display: block;
+      width: 250px;
+      height: 150px;
+      margin: 0 auto;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="container" style="border: 1px solid; margin-top: 5%; padding: 5px;">
+    <div style="width: 100%; padding: 2px; background-color:  #38003c;">
+      <h1> {{ club }} </h1>
+      <h5 style="color: white;" align="center"> Manager: {{ name }} </h5>
+      {% if session['is_logged_in']==True %}
+        <form action="/logout"  >
+        <button class="btn btn-success" style="background-color:  #f96f6f; float: right; margin-top: -8%; width: 80px;height: 30px;color: white;text-align: center;">Logout</button>
+        <br>
+    </form>
+      {% else %}
+          <script type="text/javascript">
+            alert("Login First .."); window.location.href="http://127.0.0.1:5000/login"
+          </script>
+      {% endif %}   
+    </div>
+  </div>
+  <div class="container" style=" margin-top: 2%; padding: 5px;">
+    <div class="col-md-3"></div>
+    <form action="/teamManagement" class="col-md-3" style="margin-top: 100px;">
+      <div class="img-with-text">
+        <img src="http://127.0.0.1:5000/static/images/tactics.jpeg" alt="sometext" />
+        <button class="btn btn-success" style="width: 180px;font-weight: bold;">Team Management</button>
+        <br>
+      </div>
+    </form>
+    <form action="/analysis" class="col-md-3" style="margin-top: 100px;">
+      <div class="img-with-text">
+        <img src="http://127.0.0.1:5000/static/images/analysis.png" alt="sometext" />
+        <button class="btn btn-success" style="width: 180px;font-weight: bold;">Analysis</button>
+        <br>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Analysis</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<style type="text/css">
+		body{
+			background-color: black;
+			background-image: url('http://127.0.0.1:5000/static/images/analys.jpg');
+			 background-size:     cover;                      
+            background-repeat:   no-repeat; 
+		}
+		
+		.portrait {
+		    height: 100px;
+		    width: 200px;
+		    margin-left: 5%;
+		    display: inline-block;
+		    
+		    margin-top: 10%;
+
+
+		}
+		h3{
+			color: white;
+			text-align: center;
+			font-weight: bolder;
+			line-height: 50px
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container" style="/*border: 1px solid white;*/ height: 400px;width: 600px;float: left;margin-top: 10%; margin-left: 10%;">
+		<div class="portrait" style="background-color: rgba(0,0,0,0.5);">
+			<a href="{{ url_for('wfa')}}" target="blank" style="text-decoration: none;">
+				<h3>World Football</h3>
+			</a>
+		</div>
+		<div class="portrait" style="background-color: #340040; opacity: 0.9">
+			<a href="{{ url_for('clubProfile')}}" target="blank" style="text-decoration: none;">
+				<h3>Club Profiles</h3>
+			</a>
+		</div>
+		<div class="portrait" style="background-color: #f2055c;opacity: 0.9">
+			<a href="{{ url_for('attributeAnalysis')}}" target="blank" style="text-decoration: none;">
+				<h3>Scout Players</h3>
+			</a>
+		</div>
+		<div class="portrait" style="background-color: #05f26c;opacity: 0.9">
+			<a href="{{ url_for('playerWorth')}}" target="blank" style="text-decoration: none;">
+				<h3>Player Worth</h3>
+			</a>
+		</div>
+	</div>
+</body>
+
+</html>

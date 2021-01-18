@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Log In</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        body{
+                    background-color: black;
+                    background-image: url('http://127.0.0.1:5000/static/images/bg2.jpg');
+                    background-size:     cover;                      
+                    background-repeat:   no-repeat;
+                    /*background-position: center 0; */
+                }
+                h3{
+                    color: black;
+                    font-size: 20px;
+                    text-align: center;
+                    font-weight: bolder;
+                }
+                input{
+                    text-align: center;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-2"></div>
+        <form method="POST"  class="col-md-4" style="margin-top: 200px">
+            <div class="form-group">
+                <h3>Email</h3>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="form-group">
+                <h3>Password</h3>
+                <input type="password" class="form-control" name="passwd" required>
+            </div>
+            <div>
+                <div class="col-md-3"></div>
+                <input type="submit" value="Log In" class="btn btn-success" style="width: 180px;font-weight: bold;">
+                <!--<button class="btn btn-success" style="width: 180px;font-weight: bold;">Log In</button>-->
+            </div>
+            <br>
+            <div> <a href="{{ url_for('registration')}}" style="text-decoration: none;"><h4 style="text-align: center;color: white;">Not Registered?. click here to register.</h4></a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
